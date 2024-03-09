@@ -9,12 +9,13 @@ export const getBooks = createAsyncThunk(
       const data = await res.json();
       return data;
     } catch (error) {
-      console.log(error);
+      // To return an error (rejected not fulfilled)
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
-const initState = { books: null, isLoading: false };
+const initState = { books: [], isLoading: false, error: null };
 
 const bookSlice = createSlice({
   name: "book",
@@ -23,17 +24,16 @@ const bookSlice = createSlice({
     builder
       .addCase(getBooks.pending, (state, action) => {
         state.isLoading = true;
-        console.log(action);
       })
       .addCase(getBooks.fulfilled, (state, action) => {
         state.isLoading = false;
 
-        console.log(action);
+        state.books = action.payload; // action.payload = Array
       })
       .addCase(getBooks.rejected, (state, action) => {
         state.isLoading = false;
 
-        console.log(action);
+        state.error = action.payload; // action.payload = Failed to fetch
       });
   },
 });
