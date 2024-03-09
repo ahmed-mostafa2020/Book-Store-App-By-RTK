@@ -6,6 +6,8 @@ const AddForm = () => {
   const dispatch = useDispatch();
 
   const { isLoading } = useSelector((state) => state.books);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  // const name = useSelector((state) => state.auth.name); used getState() instead
 
   const title = useRef(null);
   const price = useRef(null);
@@ -17,6 +19,7 @@ const AddForm = () => {
       title: title.current.value,
       price: price.current.value,
       description: description.current.value,
+      // userName: name,
     };
 
     dispatch(insertBooks(data));
@@ -63,7 +66,11 @@ const AddForm = () => {
             ></textarea>
           </div>
 
-          <button type="submit" className="btn btn-primary mt-2">
+          <button
+            type="submit"
+            className="btn btn-primary mt-2"
+            disabled={!isLoggedIn}
+          >
             {isLoading ? (
               <div className="spinner-border" role="status">
                 <span className="visually-hidden">Loading...</span>

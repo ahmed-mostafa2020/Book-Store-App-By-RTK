@@ -1,6 +1,6 @@
 import React from "react";
 
-const BooksList = ({ isLoading, books }) => {
+const BooksList = ({ isLoading, books, isLoggedIn }) => {
   const booksList =
     books.length > 0 ? (
       books.map((item) => (
@@ -11,11 +11,19 @@ const BooksList = ({ isLoading, books }) => {
           <div>{item.title}</div>
 
           <div className="btn-group" role="group">
-            <button type="button" className="btn btn-primary">
+            <button
+              type="button"
+              className="btn btn-primary"
+              disabled={!isLoggedIn}
+            >
               Read
             </button>
 
-            <button type="button" className="btn btn-danger">
+            <button
+              type="button"
+              className="btn btn-danger"
+              disabled={!isLoggedIn}
+            >
               Delete
             </button>
           </div>

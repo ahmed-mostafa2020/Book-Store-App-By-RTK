@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-// Action has 3 response types
+// createAsyncThunk => Action has 3 response types
 
 // Get Data
 export const getBooks = createAsyncThunk(
@@ -21,7 +21,11 @@ export const getBooks = createAsyncThunk(
 export const insertBooks = createAsyncThunk(
   "book/insertBooks",
   async (bookData, thunkAPI) => {
+    const { rejectWithValue, getState } = thunkAPI;
     try {
+      // To add userName to posted data
+      bookData.userName = getState().auth.name;
+
       const res = await fetch("http://localhost:3005/book", {
         method: "POST",
         body: JSON.stringify(bookData),
@@ -31,7 +35,7 @@ export const insertBooks = createAsyncThunk(
       return data;
     } catch (error) {
       // To return an error (rejected not fulfilled)
-      return thunkAPI.rejectWithValue(error.message);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -70,7 +74,7 @@ const bookSlice = createSlice({
       .addCase(insertBooks.rejected, (state, action) => {
         state.isLoading = false;
 
-        state.error = action.payload; // action.payload = Failed to fetch
+        state.error = action.payload;
       });
   },
 });

@@ -9,6 +9,7 @@ import { getBooks } from "../../store/bookSlice";
 const BookContainer = () => {
   const dispatch = useDispatch();
   const { isLoading, books } = useSelector((state) => state.books);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   useEffect(() => {
     dispatch(getBooks());
@@ -19,7 +20,11 @@ const BookContainer = () => {
       <hr className="my-5" />
       <div className="row mb-5">
         <div className="col">
-          <BooksList isLoading={isLoading} books={books} />
+          <BooksList
+            isLoading={isLoading}
+            books={books}
+            isLoggedIn={isLoggedIn}
+          />
         </div>
         <div className="col side-line">
           <BookInfo />
