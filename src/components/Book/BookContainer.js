@@ -17,7 +17,7 @@ const BookContainer = () => {
   return (
     <Fragment>
       <hr className="my-5" />
-      <div className="row">
+      <div className="row mb-5">
         <div className="col">
           <BooksList isLoading={isLoading} books={books} />
         </div>
