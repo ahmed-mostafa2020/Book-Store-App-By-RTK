@@ -3,11 +3,12 @@ import BookInfo from "./BookInfo";
 import BooksList from "./BooksList";
 import "./book.css";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getBooks } from "../../store/bookSlice";
 
 const BookContainer = () => {
   const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.books);
 
   useEffect(() => {
     dispatch(getBooks());
@@ -18,7 +19,7 @@ const BookContainer = () => {
       <hr className="my-5" />
       <div className="row">
         <div className="col">
-          <BooksList />
+          <BooksList isLoading={isLoading} />
         </div>
         <div className="col side-line">
           <BookInfo />

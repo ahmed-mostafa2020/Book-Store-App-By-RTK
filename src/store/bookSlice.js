@@ -14,7 +14,7 @@ export const getBooks = createAsyncThunk(
   }
 );
 
-const initState = { books: null };
+const initState = { books: null, isLoading: false };
 
 const bookSlice = createSlice({
   name: "book",
@@ -22,12 +22,17 @@ const bookSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getBooks.pending, (state, action) => {
+        state.isLoading = true;
         console.log(action);
       })
       .addCase(getBooks.fulfilled, (state, action) => {
+        state.isLoading = false;
+
         console.log(action);
       })
       .addCase(getBooks.rejected, (state, action) => {
+        state.isLoading = false;
+
         console.log(action);
       });
   },
