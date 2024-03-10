@@ -22,6 +22,7 @@ export const insertBooks = createAsyncThunk(
   "book/insertBooks",
   async (bookData, thunkAPI) => {
     const { rejectWithValue, getState } = thunkAPI;
+
     try {
       // To add userName to posted data
       bookData.userName = getState().auth.name;
@@ -40,6 +41,25 @@ export const insertBooks = createAsyncThunk(
   }
 );
 
+// Delete Data
+export const deleteBooks = createAsyncThunk(
+  "book/deleteBooks",
+  async (id, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+
+    try {
+      await fetch(`http://localhost:3005/book/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json; charset=UTF-8" },
+      });
+      return id;
+    } catch (error) {
+      // To return an error (rejected not fulfilled)
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const initState = { books: [], isLoading: false, error: null };
 
 const bookSlice = createSlice({
@@ -51,14 +71,14 @@ const bookSlice = createSlice({
       .addCase(getBooks.pending, (state, action) => {
         state.isLoading = true;
       })
+
       .addCase(getBooks.fulfilled, (state, action) => {
         state.isLoading = false;
-
         state.books = action.payload; // action.payload = Array
       })
+
       .addCase(getBooks.rejected, (state, action) => {
         state.isLoading = false;
-
         state.error = action.payload; // action.payload = Failed to fetch
       })
 
@@ -66,14 +86,29 @@ const bookSlice = createSlice({
       .addCase(insertBooks.pending, (state, action) => {
         state.isLoading = true;
       })
+
       .addCase(insertBooks.fulfilled, (state, action) => {
         state.isLoading = false;
-
         state.books.push(action.payload);
       })
+
       .addCase(insertBooks.rejected, (state, action) => {
         state.isLoading = false;
+        state.error = action.payload;
+      })
 
+      // Delete Data
+      .addCase(deleteBooks.pending, (state, action) => {
+        state.isLoading = true;
+      })
+
+      .addCase(deleteBooks.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.books = state.books.filter((el) => el.id !== action.payload);
+      })
+
+      .addCase(deleteBooks.rejected, (state, action) => {
+        state.isLoading = false;
         state.error = action.payload;
       });
   },

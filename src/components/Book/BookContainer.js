@@ -4,7 +4,7 @@ import BooksList from "./BooksList";
 import "./book.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getBooks } from "../../store/bookSlice";
+import { getBooks, deleteBooks } from "../../store/bookSlice";
 
 const BookContainer = () => {
   const dispatch = useDispatch();
@@ -24,6 +24,8 @@ const BookContainer = () => {
             isLoading={isLoading}
             books={books}
             isLoggedIn={isLoggedIn}
+            deleteBooks={deleteBooks}
+            dispatch={dispatch}
           />
         </div>
         <div className="col side-line">
