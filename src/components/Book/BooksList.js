@@ -1,4 +1,12 @@
+import { useState } from "react";
+import { Button, Modal } from "react-bootstrap";
+
 const BooksList = ({ isLoading, books, isLoggedIn, deleteBooks, dispatch }) => {
+  const [data, setData] = useState();
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+
   const booksList =
     books.length > 0 ? (
       books.map((item) => (
@@ -21,7 +29,7 @@ const BooksList = ({ isLoading, books, isLoggedIn, deleteBooks, dispatch }) => {
               type="button"
               className="btn btn-danger"
               disabled={!isLoggedIn}
-              onClick={() => dispatch(deleteBooks(item.id))}
+              onClick={() => setData(item) + setShow(true)}
             >
               Delete
             </button>
@@ -33,16 +41,41 @@ const BooksList = ({ isLoading, books, isLoggedIn, deleteBooks, dispatch }) => {
     );
 
   return (
-    <div>
-      <h2>Books List</h2>
-      {isLoading ? (
-        <div className="spinner-border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-      ) : (
-        <ul className="list-group">{booksList}</ul>
-      )}
-    </div>
+    <>
+      <div>
+        <h2>Books List</h2>
+        {isLoading ? (
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        ) : (
+          <ul className="list-group">{booksList}</ul>
+        )}
+      </div>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Deleting Book</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p className="mb-0">
+            Are you sure to delete book with title :{" "}
+            <strong>{data?.title}</strong> ?
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="danger"
+            onClick={() => dispatch(deleteBooks(data)) + handleClose()}
+          >
+            Delete
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Back
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
 
