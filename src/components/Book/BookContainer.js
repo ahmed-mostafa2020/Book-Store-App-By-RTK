@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import BookInfo from "./BookInfo";
 import BooksList from "./BooksList";
 import "./book.css";

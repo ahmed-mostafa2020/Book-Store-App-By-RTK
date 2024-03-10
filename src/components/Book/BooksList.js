@@ -1,5 +1,3 @@
-import React from "react";
-
 const BooksList = ({ isLoading, books, isLoggedIn, deleteBooks, dispatch }) => {
   const booksList =
     books.length > 0 ? (
