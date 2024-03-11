@@ -65,6 +65,7 @@ export const deleteBooks = createAsyncThunk(
         method: "DELETE",
         headers: { "Content-Type": "application/json; charset=UTF-8" },
       });
+
       return item;
     } catch (error) {
       // To return an error (rejected not fulfilled)
@@ -91,7 +92,7 @@ export const getBook = createAsyncThunk(
   }
 );
 
-const initState = { books: [], isLoading: false, error: null, bookInfo: null };
+const initState = { books: [], isLoading: false, error: null, bookInfo: {} };
 
 const bookSlice = createSlice({
   name: "book",
@@ -143,19 +144,10 @@ const bookSlice = createSlice({
         state.error = action.payload;
       })
 
-      // Book info
-      .addCase(getBook.pending, (state, action) => {
-        state.isLoading = true;
-      })
-
+      // Get Book
       .addCase(getBook.fulfilled, (state, action) => {
         state.isLoading = false;
         state.bookInfo = action.payload;
-      })
-
-      .addCase(getBook.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
       });
   },
 });

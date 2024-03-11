@@ -61,10 +61,10 @@ const BooksList = ({
         </div>
 
         {isLoading ? (
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
+          // <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
         ) : (
+          // </div>
           <ul className="list-group">{booksList}</ul>
         )}
       </div>

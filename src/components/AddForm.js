@@ -71,13 +71,7 @@ const AddForm = () => {
             className="btn btn-primary mt-2"
             disabled={!isLoggedIn}
           >
-            {isLoading ? (
-              <div className="spinner-border" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-            ) : (
-              "Submit"
-            )}
+            {isLoading ? "Loading..." : "Submit"}
           </button>
         </form>
       </div>
