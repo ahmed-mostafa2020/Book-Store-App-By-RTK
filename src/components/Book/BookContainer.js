@@ -4,12 +4,13 @@ import BooksList from "./BooksList";
 import "./book.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getBooks, deleteBooks } from "../../store/bookSlice";
+import { getBooks, deleteBooks, getBook } from "../../store/bookSlice";
 
 const BookContainer = () => {
   const dispatch = useDispatch();
   const { isLoading, books } = useSelector((state) => state.books);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const bookInfo = useSelector((state) => state.books.bookInfo);
 
   useEffect(() => {
     dispatch(getBooks());
@@ -26,10 +27,11 @@ const BookContainer = () => {
             isLoggedIn={isLoggedIn}
             deleteBooks={deleteBooks}
             dispatch={dispatch}
+            getBook={getBook}
           />
         </div>
         <div className="col side-line">
-          <BookInfo />
+          <BookInfo bookInfo={bookInfo} />
         </div>
       </div>
     </Fragment>

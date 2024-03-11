@@ -1,7 +1,14 @@
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 
-const BooksList = ({ isLoading, books, isLoggedIn, deleteBooks, dispatch }) => {
+const BooksList = ({
+  isLoading,
+  books,
+  isLoggedIn,
+  deleteBooks,
+  dispatch,
+  getBook,
+}) => {
   const [data, setData] = useState();
   const [show, setShow] = useState(false);
 
@@ -14,13 +21,16 @@ const BooksList = ({ isLoading, books, isLoggedIn, deleteBooks, dispatch }) => {
           className="list-group-item d-flex  justify-content-between align-items-center"
           key={item.id}
         >
-          <div>{item.title}</div>
+          <strong>{item.title} </strong>
 
           <div className="btn-group" role="group">
             <button
               type="button"
               className="btn btn-primary"
               disabled={!isLoggedIn}
+              onClick={() => {
+                dispatch(getBook(item));
+              }}
             >
               Read
             </button>
