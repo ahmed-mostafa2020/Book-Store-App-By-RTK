@@ -43,7 +43,13 @@ const BooksList = ({ isLoading, books, isLoggedIn, deleteBooks, dispatch }) => {
   return (
     <>
       <div>
-        <h2>Books List</h2>
+        <div className="d-flex align-items-center justify-content-between">
+          <h2>Books List</h2>
+          <p className="mb-0">
+            Max books you can insert are only <strong>5 </strong> books
+          </p>
+        </div>
+
         {isLoading ? (
           <div className="spinner-border" role="status">
             <span className="visually-hidden">Loading...</span>

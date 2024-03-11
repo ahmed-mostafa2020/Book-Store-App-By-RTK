@@ -30,8 +30,8 @@ export const insertBooks = createAsyncThunk(
       // delete specif item while insert new item with specif author
       const booksNumbers = getState().books.books;
       const userName = getState().auth.name;
-      if (booksNumbers.length > 5 && userName === "Ahmed") {
-        dispatch(deleteBooks(booksNumbers[5]));
+      if (booksNumbers.length > 4 && userName === "Ahmed") {
+        dispatch(deleteBooks(booksNumbers[4]));
       }
 
       const res = await fetch("http://localhost:3005/book", {
