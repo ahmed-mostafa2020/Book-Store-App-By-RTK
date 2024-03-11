@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
+import { logInsert } from "./reportSlice";
 // createAsyncThunk => Action has 3 response types
 
 // Get Data
@@ -21,11 +21,18 @@ export const getBooks = createAsyncThunk(
 export const insertBooks = createAsyncThunk(
   "book/insertBooks",
   async (bookData, thunkAPI) => {
-    const { rejectWithValue, getState } = thunkAPI;
+    const { rejectWithValue, getState, dispatch } = thunkAPI;
 
     try {
       // To add userName to posted data
       bookData.userName = getState().auth.name;
+
+      // delete specif item while insert new item with specif author
+      const booksNumbers = getState().books.books;
+      const userName = getState().auth.name;
+      if (booksNumbers.length > 5 && userName === "Ahmed") {
+        dispatch(deleteBooks(booksNumbers[5]));
+      }
 
       const res = await fetch("http://localhost:3005/book", {
         method: "POST",
@@ -33,8 +40,14 @@ export const insertBooks = createAsyncThunk(
         headers: { "Content-Type": "application/json; charset=UTF-8" },
       });
       const data = await res.json();
+
+      // dispatch action from action (create report)
+      dispatch(logInsert({ name: "insertBooks", status: "success" }));
+
       return data;
     } catch (error) {
+      dispatch(logInsert({ name: "insertBooks", status: "failed" }));
+
       // To return an error (rejected not fulfilled)
       return rejectWithValue(error.message);
     }
