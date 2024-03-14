@@ -28,9 +28,9 @@ const BooksList = ({
               type="button"
               className="btn btn-primary"
               disabled={!isLoggedIn}
-              onClick={() => {
-                dispatch(getBook(item));
-              }}
+              // onClick={() => {
+              //   dispatch(getBook(item));
+              // }}
             >
               Read
             </button>

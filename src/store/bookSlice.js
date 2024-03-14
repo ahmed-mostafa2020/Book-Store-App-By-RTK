@@ -74,25 +74,7 @@ export const deleteBooks = createAsyncThunk(
   }
 );
 
-// Book info
-export const getBook = createAsyncThunk(
-  "book/getBook",
-  async (item, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
-
-    try {
-      await fetch(`http://localhost:3005/book/${item.id}`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json; charset=UTF-8" },
-      });
-      return item;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-const initState = { books: [], isLoading: false, error: null, bookInfo: {} };
+const initState = { books: [], isLoading: false, error: null };
 
 const bookSlice = createSlice({
   name: "book",
@@ -142,12 +124,6 @@ const bookSlice = createSlice({
       .addCase(deleteBooks.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-      })
-
-      // Get Book
-      .addCase(getBook.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.bookInfo = action.payload;
       });
   },
 });
