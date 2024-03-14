@@ -23,8 +23,10 @@ const BookContainer = () => {
     });
   };
 
-  const resetBookInfo = () => {
-    setBookInfo({});
+  const resetBookInfo = (id) => {
+    if (id === bookInfo.id) {
+      setBookInfo({});
+    }
   };
 
   return (

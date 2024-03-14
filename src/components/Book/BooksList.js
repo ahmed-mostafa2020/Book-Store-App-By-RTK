@@ -84,7 +84,9 @@ const BooksList = ({
           <Button
             variant="danger"
             onClick={() =>
-              dispatch(deleteBooks(data)) + resetBookInfo() + handleClose()
+              dispatch(deleteBooks(data)) +
+              resetBookInfo(data.id) +
+              handleClose()
             }
           >
             Delete
