@@ -40,7 +40,11 @@ const BooksList = ({
               type="button"
               className="btn btn-danger"
               disabled={!isLoggedIn}
-              onClick={() => setData(item) + setShow(true)}
+              onClick={() =>
+                setData((prev) => {
+                  return { ...prev, ...item };
+                }) + setShow(true)
+              }
             >
               Delete
             </button>
@@ -62,10 +66,8 @@ const BooksList = ({
         </div>
 
         {isLoading ? (
-          // <div className="spinner-border" role="status">
           <span className="visually-hidden">Loading...</span>
         ) : (
-          // </div>
           <ul className="list-group">{booksList}</ul>
         )}
       </div>

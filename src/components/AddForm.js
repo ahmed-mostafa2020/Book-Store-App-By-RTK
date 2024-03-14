@@ -15,6 +15,7 @@ const AddForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const data = {
       title: title.current.value,
       price: price.current.value,
