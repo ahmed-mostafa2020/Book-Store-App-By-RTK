@@ -7,7 +7,8 @@ const BooksList = ({
   isLoggedIn,
   deleteBooks,
   dispatch,
-  getBook,
+  getBookId,
+  resetBookInfo,
 }) => {
   const [data, setData] = useState();
   const [show, setShow] = useState(false);
@@ -28,9 +29,9 @@ const BooksList = ({
               type="button"
               className="btn btn-primary"
               disabled={!isLoggedIn}
-              // onClick={() => {
-              //   dispatch(getBook(item));
-              // }}
+              onClick={() => {
+                getBookId(item.id);
+              }}
             >
               Read
             </button>
@@ -82,7 +83,9 @@ const BooksList = ({
         <Modal.Footer>
           <Button
             variant="danger"
-            onClick={() => dispatch(deleteBooks(data)) + handleClose()}
+            onClick={() =>
+              dispatch(deleteBooks(data)) + resetBookInfo() + handleClose()
+            }
           >
             Delete
           </Button>
