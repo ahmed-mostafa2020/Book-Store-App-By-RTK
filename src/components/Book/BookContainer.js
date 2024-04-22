@@ -10,8 +10,8 @@ const BookContainer = () => {
   const [bookInfo, setBookInfo] = useState({});
 
   const dispatch = useDispatch();
-  const { isLoading, books } = useSelector((state) => state.books);
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const { isLoading, books } = useSelector((state) => state.books); // not destructed before exporting
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn); // destructed before exporting
 
   useEffect(() => {
     dispatch(getBooks());

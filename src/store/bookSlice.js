@@ -42,7 +42,13 @@ export const insertBooks = createAsyncThunk(
       const data = await res.json();
 
       // dispatch action from action (create report)
-      dispatch(logInsert({ name: "insertBooks", status: "success" }));
+      dispatch(
+        logInsert({
+          actionName: "insertBooks",
+          bookName: bookData.title,
+          status: "success",
+        })
+      );
 
       return data;
     } catch (error) {
