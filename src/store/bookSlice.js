@@ -52,7 +52,7 @@ export const insertBooks = createAsyncThunk(
 
       return data;
     } catch (error) {
-      dispatch(logInsert({ name: "insertBooks", status: "failed" }));
+      dispatch(logInsert({ actionName: "insertBooks", status: "failed" }));
 
       // To return an error (rejected not fulfilled)
       return rejectWithValue(error.message);

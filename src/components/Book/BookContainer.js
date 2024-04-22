@@ -19,7 +19,9 @@ const BookContainer = () => {
 
   const getBookId = (id) => {
     const selectedBook = books.find((item) => item.id === id);
+
     setBookInfo((prev) => {
+      // Do not mutate the state
       return { ...prev, ...selectedBook };
     });
   };
