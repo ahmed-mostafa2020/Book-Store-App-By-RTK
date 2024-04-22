@@ -64,7 +64,7 @@ export const insertBooks = createAsyncThunk(
 export const deleteBooks = createAsyncThunk(
   "book/deleteBooks",
   async (item, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
+    const { rejectWithValue, dispatch } = thunkAPI;
 
     try {
       await fetch(`http://localhost:3005/book/${item.id}`, {
@@ -72,8 +72,18 @@ export const deleteBooks = createAsyncThunk(
         headers: { "Content-Type": "application/json; charset=UTF-8" },
       });
 
+      // dispatch action from action (create report)
+      dispatch(
+        logInsert({
+          actionName: "deleteBooks",
+          bookName: item.title,
+          status: "deleted successfully",
+        })
+      );
       return item;
     } catch (error) {
+      dispatch(logInsert({ actionName: "deleteBooks", status: "failed" }));
+
       // To return an error (rejected not fulfilled)
       return rejectWithValue(error.message);
     }

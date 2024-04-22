@@ -26,6 +26,7 @@ const BookContainer = () => {
     });
   };
 
+  // Check if will delete the book you read
   const resetBookInfo = (id) => {
     if (id === bookInfo.id) {
       setBookInfo({});
